@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using Namotion.Reflection;
 using TestTask.API.Filters;
 using TestTask.Services.Contracts;
+using TestTask.Services.Implementations;
 
 namespace TestTask.API.Controllers
 {
@@ -23,7 +24,7 @@ namespace TestTask.API.Controllers
         }
 
         [HttpGet("authorize")]
-        [AuthorizationFilter]
+        [ServiceFilter(typeof(AuthorizationFilter))]
         public IActionResult Authorize()
         {
             return new OkResult();

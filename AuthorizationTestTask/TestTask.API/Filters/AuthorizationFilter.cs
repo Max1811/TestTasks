@@ -12,22 +12,28 @@ namespace TestTask.API.Filters
 {
     public class AuthorizationFilter : ActionFilterAttribute, IAuthorizationFilter
     {
+        private readonly IUserService _userService;
+
+        public AuthorizationFilter(IUserService userService)
+        {
+            _userService = userService;
+        }
         public void OnAuthorization(AuthorizationFilterContext context)
         {
-            IUserService userService = context.HttpContext.RequestServices.GetRequiredService<IUserService>();
-            if (context.HttpContext.Request.Cookies["token"] != null)
+            if(context.HttpContext.Request.Cookies["token"] == null)
+            {
+                context.Result = new StatusCodeResult(403);
+            }
+            else
             {
                 string id = context.HttpContext.Request.Cookies["token"];
                 string token = context.HttpContext.Request.Cookies[id];
 
-                if(userService.GetToken(id).Value == token)
+                if(_userService.GetToken(id).Value != token)
                 {
-                    return;
+                    context.Result = new StatusCodeResult(403);
                 }
             }
-
-            context.Result = new StatusCodeResult(403);
-            return;
         }
     }
 }
