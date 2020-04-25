@@ -14,7 +14,7 @@ namespace TestTask.DependencyResolver
         {
 
             services.AddScoped<IUserService, UserService>();
-
+            
         }
     }
 }

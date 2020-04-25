@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using TestTask.API.Filters;
 using TestTask.DependencyResolver;
 
 namespace TestTask.API
@@ -30,6 +31,7 @@ namespace TestTask.API
 
             services.AddSwaggerDocument();
 
+            services.AddScoped<AuthorizationFilter>();
             services.RegisterDependencies(Configuration);
         }
 

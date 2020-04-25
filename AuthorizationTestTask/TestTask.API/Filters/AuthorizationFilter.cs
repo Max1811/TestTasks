@@ -10,7 +10,7 @@ using TestTask.Services.Contracts;
 
 namespace TestTask.API.Filters
 {
-    public class AuthorizationFilter : ActionFilterAttribute, IAuthorizationFilter
+    public class AuthorizationFilter : Attribute, IAuthorizationFilter
     {
         private readonly IUserService _userService;
 
